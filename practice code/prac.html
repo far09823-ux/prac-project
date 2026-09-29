@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#f7f8fc">
+	<title>Create your account</title>
+	<style>
+		:root {
+			color-scheme: light;
+			font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			color: #20233a;
+			background: #f7f8fc;
+			font-synthesis: none;
+			text-rendering: optimizeLegibility;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			min-height: 100vh;
+			margin: 0;
+			display: grid;
+			place-items: center;
+			padding: 32px 20px;
+			background:
+				radial-gradient(ellipse at 12% 15%, rgba(197, 190, 255, .35), transparent 34%),
+				radial-gradient(ellipse at 88% 86%, rgba(255, 211, 190, .38), transparent 30%),
+				#f7f8fc;
+		}
+
+		.layout {
+			width: min(100%, 1000px);
+			min-height: 620px;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			overflow: hidden;
+			border: 1px solid rgba(255, 255, 255, .8);
+			border-radius: 28px;
+			background: #fff;
+			box-shadow: 0 24px 80px rgba(42, 43, 76, .12);
+		}
+
+		.welcome {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			overflow: hidden;
+			padding: 42px;
+			color: #fff;
+			background: linear-gradient(145deg, #6558dc 0%, #8171e9 52%, #a58cf2 100%);
+		}
+
+		.welcome::before, .welcome::after {
+			position: absolute;
+			content: "";
+			border: 1px solid rgba(255, 255, 255, .17);
+			border-radius: 50%;
+			pointer-events: none;
+		}
+
+		.welcome::before { width: 420px; height: 420px; right: -190px; top: 140px; }
+		.welcome::after { width: 300px; height: 300px; right: -128px; top: 200px; }
+
+		.brand, .welcome-copy, .quote { position: relative; z-index: 1; }
+		.brand { display: flex; align-items: center; gap: 11px; font-size: 17px; font-weight: 750; letter-spacing: -.3px; }
+
+		.brand-mark {
+			width: 36px;
+			height: 36px;
+			display: grid;
+			place-items: center;
+			border: 1px solid rgba(255, 255, 255, .35);
+			border-radius: 12px;
+			background: rgba(255, 255, 255, .16);
+		}
+
+		.welcome-copy { max-width: 380px; margin: auto 0; padding: 52px 0; }
+		.eyebrow { margin: 0 0 16px; color: #e6e2ff; font-size: 12px; font-weight: 750; letter-spacing: 1.8px; text-transform: uppercase; }
+		h1 { margin: 0; font-size: clamp(36px, 4vw, 49px); line-height: 1.08; letter-spacing: -2.4px; }
+		.welcome-copy > p:last-child { max-width: 330px; margin: 20px 0 0; color: rgba(255, 255, 255, .8); font-size: 15px; line-height: 1.7; }
+		.quote { margin: 0; color: rgba(255, 255, 255, .86); font-size: 13px; line-height: 1.65; }
+		.quote strong { display: block; margin-top: 12px; color: #fff; font-size: 12px; }
+
+		.form-panel { display: flex; align-items: center; justify-content: center; padding: 48px 56px; }
+		.form-content { width: 100%; max-width: 370px; }
+		.form-content h2 { margin: 0; font-size: 28px; letter-spacing: -1px; }
+		.intro { margin: 9px 0 28px; color: #77798d; font-size: 14px; }
+
+		.fields { display: grid; gap: 16px; }
+		.name-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+		label { display: block; margin-bottom: 7px; color: #37394e; font-size: 12px; font-weight: 700; }
+		.input-wrap { position: relative; }
+
+		input:not([type="checkbox"]) {
+			width: 100%;
+			height: 46px;
+			padding: 0 13px;
+			border: 1px solid #e3e4ec;
+			border-radius: 10px;
+			outline: none;
+			background: #fff;
+			color: #26283d;
+			font: inherit;
+			font-size: 13px;
+			transition: border-color .18s, box-shadow .18s;
+		}
+
+		input::placeholder { color: #a2a3b1; }
+		input:focus { border-color: #7567e5; box-shadow: 0 0 0 3px rgba(117, 103, 229, .13); }
+		.password-input { padding-right: 58px !important; }
+
+		.toggle-password {
+			position: absolute;
+			top: 50%;
+			right: 12px;
+			transform: translateY(-50%);
+			padding: 4px 0;
+			border: 0;
+			background: transparent;
+			color: #7065d7;
+			cursor: pointer;
+			font: inherit;
+			font-size: 11px;
+			font-weight: 700;
+		}
+
+		.helper { margin: 7px 0 0; color: #9293a2; font-size: 11px; }
+		.terms { display: flex; align-items: flex-start; gap: 9px; margin-top: 1px; color: #747589; font-size: 11px; line-height: 1.55; }
+		.terms input { flex: 0 0 auto; width: 15px; height: 15px; margin: 1px 0 0; accent-color: #7063df; }
+		a { color: #675bd2; font-weight: 650; text-decoration: none; }
+		a:hover { text-decoration: underline; }
+
+		.submit-button {
+			width: 100%;
+			height: 48px;
+			margin-top: 2px;
+			border: 0;
+			border-radius: 11px;
+			background: #6c5ce7;
+			box-shadow: 0 8px 18px rgba(108, 92, 231, .24);
+			color: #fff;
+			cursor: pointer;
+			font: inherit;
+			font-size: 13px;
+			font-weight: 750;
+			transition: background .18s, transform .18s, box-shadow .18s;
+		}
+
+		.submit-button:hover { transform: translateY(-1px); background: #5e50d3; box-shadow: 0 10px 22px rgba(108, 92, 231, .3); }
+		.submit-button:focus-visible, .toggle-password:focus-visible, a:focus-visible { outline: 3px solid #b9b2ff; outline-offset: 3px; }
+		.signin { margin: 22px 0 0; color: #858697; text-align: center; font-size: 12px; }
+		.success-message { min-height: 18px; margin: 12px 0 0; color: #27805b; text-align: center; font-size: 12px; }
+
+		@media (max-width: 720px) {
+			body { padding: 18px 14px; }
+			.layout { max-width: 470px; min-height: unset; grid-template-columns: 1fr; border-radius: 22px; }
+			.welcome { min-height: 220px; padding: 26px 30px; }
+			.welcome-copy { padding: 28px 0 10px; }
+			.welcome-copy h1 { max-width: 350px; font-size: 35px; }
+			.welcome-copy > p:last-child, .quote { display: none; }
+			.form-panel { padding: 34px 30px 32px; }
+		}
+
+		@media (max-width: 380px) {
+			.name-fields { grid-template-columns: 1fr; gap: 16px; }
+			.form-panel { padding-inline: 22px; }
+		}
+	</style>
+</head>
+<body>
+	<main class="layout">
+		<section class="welcome" aria-label="Welcome">
+			<div class="brand"><span class="brand-mark" aria-hidden="true">✦</span> orbit</div>
+			<div class="welcome-copy">
+				<p class="eyebrow">A little more room to grow</p>
+				<h1>Your next great idea starts here.</h1>
+				<p>Bring your plans, people, and possibilities together in one calm, organized space.</p>
+			</div>
+			<blockquote class="quote">“The easiest way to turn a good idea into something real.”<strong>— Made for curious minds</strong></blockquote>
+		</section>
+
+		<section class="form-panel" aria-labelledby="form-title">
+			<div class="form-content">
+				<h2 id="form-title">Create your account</h2>
+				<p class="intro">Get started for free. No credit card needed.</p>
+
+				<form id="signup-form">
+					<div class="fields">
+						<div class="name-fields">
+							<div>
+								<label for="first-name">First name</label>
+								<input id="first-name" name="firstName" type="text" placeholder="Alex" autocomplete="given-name" required>
+							</div>
+							<div>
+								<label for="last-name">Last name</label>
+								<input id="last-name" name="lastName" type="text" placeholder="Morgan" autocomplete="family-name" required>
+							</div>
+						</div>
+
+						<div>
+							<label for="email">Email address</label>
+							<input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+						</div>
+
+						<div>
+							<label for="password">Password</label>
+							<div class="input-wrap">
+								<input class="password-input" id="password" name="password" type="password" placeholder="Create a password" autocomplete="new-password" minlength="8" required>
+								<button class="toggle-password" id="toggle-password" type="button" aria-controls="password" aria-label="Show password">Show</button>
+							</div>
+							<p class="helper">At least 8 characters.</p>
+						</div>
+
+						<label class="terms" for="terms">
+							<input id="terms" name="terms" type="checkbox" required>
+							<span>I agree to the <a href="#terms">Terms of Service</a> and <a href="#privacy">Privacy Policy</a>.</span>
+						</label>
+
+						<button class="submit-button" type="submit">Create account</button>
+					</div>
+					<p class="success-message" id="success-message" role="status" aria-live="polite"></p>
+				</form>
+
+				<p class="signin">Already have an account? <a href="#sign-in">Sign in</a></p>
+			</div>
+		</section>
+	</main>
+
+	<script>
+		const passwordInput = document.querySelector("#password");
+		const togglePassword = document.querySelector("#toggle-password");
+		const signupForm = document.querySelector("#signup-form");
+		const successMessage = document.querySelector("#success-message");
+
+		togglePassword.addEventListener("click", () => {
+			const isHidden = passwordInput.type === "password";
+			passwordInput.type = isHidden ? "text" : "password";
+			togglePassword.textContent = isHidden ? "Hide" : "Show";
+			togglePassword.setAttribute("aria-label", `${isHidden ? "Hide" : "Show"} password`);
+		});
+
+		signupForm.addEventListener("submit", (event) => {
+			event.preventDefault();
+			if (!signupForm.reportValidity()) return;
+			successMessage.textContent = "You’re all set — your account details are ready!";
+			signupForm.reset();
+			passwordInput.type = "password";
+			togglePassword.textContent = "Show";
+			togglePassword.setAttribute("aria-label", "Show password");
+		});
+	</script>
+</body>
+</html>
+
